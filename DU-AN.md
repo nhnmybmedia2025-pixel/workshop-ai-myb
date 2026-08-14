@@ -2,7 +2,7 @@
 
 File tổng để lần sau chỉnh landing **không phải lần lại**. Đọc file này trước khi sửa `index.html` / `uu-dai.html` / `js/app.js`.
 
-Cập nhật lần cuối: **14/08/2026** (case 4 link + bậc lợi ích #01–#06 + chữ miễn phí đỏ).
+Cập nhật lần cuối: **14/08/2026** (bậc giá thay thế 20.4tr → 295k).
 
 ---
 
@@ -96,25 +96,29 @@ Phễu JS: form `[data-register]` → `localStorage.myb_lead` → `uu-dai.html?n
 
 ---
 
-## 6. Giá — bậc thang (đừng san bằng)
+## 6. Giá — bậc thang (chi phí thay thế, không giá file)
 
-Não đọc **4 món cùng 3.990.000đ** là catalog giả. Phải có độ dốc.
+Não đọc **4 món cùng một số** là catalog giả. Não đọc **8 triệu → 295k** là “khóa học đang sale”, không sốc.
 
-| # | Món | Vai | Giá lẻ | Logic |
+**Quy tắc định giá:** mỗi món = thứ shop phải trả *tháng này* nếu không có bộ. Không mỏ neo 50–110 triệu (giả). Không hạ xuống gần giá OTO (mất sốc).
+
+| # | Món | Vai | Giá lẻ | Chi phí thay thế |
 |---|---|---|---|---|
-| 1 | MYB Video Hàng Loạt | Chủ lực · tool | **4.970.000đ** | ~1 tháng thuê viết kịch bản |
-| 2 | Ebook 100 mega prompt Veo/Kling/Grok | Kho | **1.970.000đ** | ~20k/cảnh |
-| 3 | Ebook xây kênh AI đa nền tảng | Quy trình | **990.000đ** | 1 buổi tư vấn |
-| 4 | MyB Image Magic | Món kéo | **290.000đ** | Gần bằng cả gói 295k |
-| — | Cộng 4 món | | **8.220.000đ** | |
-| 5 | Buổi 1:1 (chỉ VIP) | Upsell | **2.500.000đ** | Tổng VIP lẻ **10.720.000đ** |
+| 1 | MYB Video Hàng Loạt | Chủ lực · tool | **11.970.000đ** | 10 clip/tuần × 300k × 4 tuần = 1 tháng freelancer kịch bản |
+| 2 | Ebook 100 mega prompt | Kho | **4.970.000đ** | 100 cảnh × 49.700đ — rẻ hơn 1 buổi quay cinematic |
+| 3 | Ebook xây kênh AI | Quy trình | **2.490.000đ** | 1 khóa vận hành 3 nền tảng (không phải 1 buổi tư vấn) |
+| 4 | MyB Image Magic | Utility | **970.000đ** | ~1 năm tool xử lý ảnh shop; vẫn gấp 3 lần gói 295k |
+| — | Cộng 4 món | | **20.400.000đ** | ~69 lần giá OTO |
+| 5 | Buổi 1:1 (chỉ VIP) | Upsell | **4.970.000đ** | Nửa ngày CEO/agency ngồi case · tổng VIP lẻ **25.370.000đ** |
+
+Tỉ lệ bậc (giữ khi chỉnh): tool ≈ 2,4× kho prompt ≈ 2× ebook ≈ 2,6× utility. Utility vẫn ≥ 3× giá 295k.
 
 Gói bán:
 
 | Gói | Giá | Giảm so với lẻ | SKU |
 |---|---|---|---|
-| 50 suất đầu | **295.000đ** | −7.925.000đ (gạch 8.220.000) | `OTO-295-50SUAT` |
-| VIP kèm 1:1 | **999.000đ** | −9.721.000đ (gạch 10.720.000) | `OTO-999-VIP-1-1` |
+| 50 suất đầu | **295.000đ** | −20.105.000đ (gạch 20.400.000) | `OTO-295-50SUAT` |
+| VIP kèm 1:1 | **999.000đ** | −24.371.000đ (gạch 25.370.000) | `OTO-999-VIP-1-1` |
 
 Scarcity: 50 suất, `localStorage.myb_taken` mặc định **37** → còn 13. Hết suất / tắt tab = mất giá. Countdown OTO 20 phút (`sessionStorage.myb_oto_deadline`). Countdown sự kiện: `2026-08-26T19:30:00+07:00`.
 
@@ -208,7 +212,7 @@ FAQ: tool **không bắt** mua Veo/Kling. Ebook prompt dùng **khi đã có** t�
 | Bỏ SOP-only → 4 món tool + ebook | OTO cần “chạy được tối nay” |
 | Có lúc cấm model trả phí, rồi **mở lại** Veo/Kling/Grok trong ebook prompt | Tool thì miễn phí; kho prompt là IP |
 | 387k → 399k → **295k / VIP 999k** | 50 suất + 1:1 |
-| Bỏ 4 × 3.990.000 | Não đọc giả; xếp 4.97 / 1.97 / 0.99 / 0.29 |
+| Bỏ 4 × 3.990.000 rồi 8.22tr | Não đọc giả / không sốc; xếp 11.97 / 4.97 / 2.49 / 0.97 = 20.4tr |
 | STK ACB công ty, không TK cá nhân | Hóa đơn / uy tín |
 | Case Nàng Dâu + số MYB thật | Chỉ 1 bằng chứng view lớn |
 | Viết hoa tên trên form | Lead sạch, đúng chính tả |

@@ -1068,10 +1068,18 @@ a.case-card:focus-visible {
 }
 
 .stack h3 {
-  margin: 0 0 12px;
+  margin: 0 0 6px;
   text-align: center;
   color: var(--white);
   font-size: 16px;
+}
+
+.stack-note {
+  margin: 0 0 12px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.4;
+  opacity: 0.72;
 }
 
 .stack-row {

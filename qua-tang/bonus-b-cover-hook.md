@@ -11,7 +11,7 @@ Thumbnail / cover FB / cảnh đầu video. 1 font, 1 chỗ mặt, 1 chỗ logo.
 5. Cùng mặt. 14 ngày.  
 6. Insight trước. Tool sau.  
 7. Có cửa. Mới tính bán.  
-8. 8,22 triệu → 295k.
+8. 20,4 triệu → 295k.
 
 ## 6 CTA (1 / video)
 
