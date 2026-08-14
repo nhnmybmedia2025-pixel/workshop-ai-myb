@@ -2,7 +2,7 @@
 
 File tổng để lần sau chỉnh landing **không phải lần lại**. Đọc file này trước khi sửa `index.html` / `uu-dai.html` / `js/app.js`.
 
-Cập nhật lần cuối: **14/08/2026**.
+Cập nhật lần cuối: **14/08/2026** (case 4 link + bậc lợi ích #01–#06 + chữ miễn phí đỏ).
 
 ---
 
@@ -146,15 +146,18 @@ Không còn Techcombank. Viết hoa đúng: **Công ty** (không “Công Ty”)
 
 ## 9. Case study — quy tắc chứng
 
-Chỉ **Nàng Dâu** được khoe view lớn. Kênh MYB nói thẳng số nhỏ — không bịa viral.
+Cả thẻ case là link (`<a class="case-card">`), mở tab mới. Chỉ **Nàng Dâu** được khoe view lớn. Kênh MYB nói thẳng số nhỏ — không bịa viral.
 
-| Case | File ảnh | Được nói |
-|---|---|---|
-| Chuyện tình nàng Dâu | `case-nang-dau-tt.jpg` (+ fb) | TikTok 127.800–156.500 xem, 3.314 follow, 36.200 thích. FB 70.600–85.200 xem, 4.100 follow |
-| Avatar MYB × SP | `case-avatar-myb.jpg` | Format shop; Reels **50–126** xem — kênh thử nghiệm |
-| Fanpage MYB | `case-myb-brand.jpg` | 32.000 follow; clip **51–234** xem — kênh chuyên gia |
+| Case | Ảnh | Link | Được nói |
+|---|---|---|---|
+| Chuyện tình nàng Dâu | `case-nang-dau-tt.jpg` | [tiktok.com/@daudamdo](https://www.tiktok.com/@daudamdo) | TikTok 127.800–156.500 xem, 3.314 follow, 36.200 thích. FB 70.600–85.200 xem, 4.100 follow |
+| Avatar MYB × SP | `case-avatar-myb.jpg` | [facebook.com/MyB.Media.Agency/reels](https://www.facebook.com/MyB.Media.Agency/reels/) | Khuôn shop; Reels **50–126** xem — kênh thử nghiệm |
+| AI template MYB | `case-myb-brand.jpg` | [facebook.com/mybmedia.agency…/reels](https://www.facebook.com/mybmedia.agencydichvutruyenthongvaquangcao/reels/) | 32.000 follow; clip **51–234** xem — kênh chuyên gia |
+| AI mỗi ngày · Mr Nam | `case-nam-ai.jpg` | [tiktok.com/@aimoingaybymrnam](https://www.tiktok.com/@aimoingaybymrnam) | Series mặt nhìn máy; dùng để dạy khuôn, không khoe view |
 
 Workshop dạy: khóa nhân vật / khóa nhận diện / nhân bản góc. Không lấy case từ slide lạ.
+
+**Mục “Bạn sẽ nhận được gì”:** đánh số **#01–#06 theo thứ tự buổi live** (ý tưởng → nhận diện → phân kênh → lời kêu gọi → chốt đơn → bộ quà). Không nhảy #1 #3 #6 #9 — đó là mẹo “giả còn nhiều”, không khớp nội dung.
 
 ---
 
