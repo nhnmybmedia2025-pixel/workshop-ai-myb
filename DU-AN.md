@@ -2,7 +2,7 @@
 
 File tổng để lần sau chỉnh landing **không phải lần lại**. Đọc file này trước khi sửa `index.html` / `uu-dai.html` / `js/app.js`.
 
-Cập nhật lần cuối: **14/08/2026** (bậc giá thay thế 20.4tr → 295k).
+Cập nhật lần cuối: **14/08/2026** (domain https://workshop-video-ai.mybmedia.vn).
 
 ---
 
@@ -45,11 +45,15 @@ Tệp: chủ shop / SME, trưởng nhóm marketing (team 1–3), freelancer / cr
 | Local | `python3 -m http.server 4173` → http://127.0.0.1:4173/?nguon=zalo |
 | GitHub | https://github.com/nhnmybmedia2025-pixel/workshop-ai-myb · nhánh `main` |
 | Cloudflare Pages | project `workshop-ai-myb` |
-| Live | https://workshop-ai-myb.pages.dev/ |
+| Live (uy tín) | **https://workshop-video-ai.mybmedia.vn/** |
+| Live (Pages) | https://workshop-ai-myb.pages.dev/ |
 | Account CF | nhn.mybmedia2025@gmail.com · account id `19e74f45bda4ddd31d35e47286127126` |
+| Zone | `mybmedia.vn` · id `71d684070e6155fa22135685da5d5ff7` |
 | `wrangler.toml` | `name = "workshop-ai-myb"` · `pages_build_output_dir = "."` |
 | Deploy | `npx wrangler pages deploy . --project-name=workshop-ai-myb` |
-| Domain riêng | `workshop-ai.mybmedia.vn` — **chưa** trỏ, chỉ làm khi Nam yêu cầu |
+| DNS | CNAME `workshop-video-ai` → `workshop-ai-myb.pages.dev` · **Proxied** |
+| Không dùng | `mybmedia.vn/workshop-video-ai` — apex là Next.js/Plesk DNS-only, 404. Path này cần rewrite trên site chính, **đừng** bật proxy apex (rủi ro trang công ty). |
+| Giữ nguyên | `workshop-ai.mybmedia.vn` — landing cũ trên Netlify (`myb-workshop.netlify.app`), ads có thể đang trỏ. |
 
 `.gitignore`: `.DS_Store`, `.wrangler/`, `node_modules/`, `*.log`, `.wrangler.toml` (file cũ lasen-web — **đừng** commit).
 
