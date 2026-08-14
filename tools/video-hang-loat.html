@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MYB Video Hàng Loạt</title>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;800&display=swap" rel="stylesheet" />
+  <style>
+    :root { --navy:#0d3558; --green:#3db54a; --ink:#14324a; --muted:#5e7384; --bg:#f3f6f8; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:"Be Vietnam Pro",sans-serif; background:var(--bg); color:var(--ink); }
+    .wrap { max-width:880px; margin:0 auto; padding:20px 16px 48px; }
+    h1 { font-size:22px; margin:8px 0; color:var(--navy); }
+    .sub { color:var(--muted); font-size:14px; margin:0 0 16px; }
+    label { display:block; font-weight:700; font-size:13px; margin:12px 0 6px; }
+    input, textarea, select { width:100%; font:inherit; font-size:16px; padding:10px 12px; border:1px solid #d5e0e8; border-radius:10px; }
+    textarea { min-height:72px; }
+    .grid { display:grid; gap:10px; }
+    @media(min-width:700px){ .grid { grid-template-columns:1fr 1fr; } }
+    .btn { background:var(--green); color:#fff; border:0; font-weight:800; padding:14px; border-radius:10px; width:100%; cursor:pointer; margin-top:16px; }
+    pre { background:var(--navy); color:#e8f7ea; padding:14px; border-radius:12px; white-space:pre-wrap; font-size:13px; line-height:1.5; }
+    .out { display:none; margin-top:20px; }
+    .out.show { display:block; }
+    .logo { height:28px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <img class="logo" src="../assets/logo-myb.png" alt="MYB" />
+    <h1>MYB Video Hàng Loạt</h1>
+    <p class="sub">Một ý bán hàng → 10 kịch bản + prompt Veo / Kling / Grok. Không tốn credit trong tool này. Bạn copy prompt sang model khi cần.</p>
+    <div class="grid">
+      <div>
+        <label>Sản phẩm / dịch vụ</label>
+        <input id="sp" placeholder="Ví dụ: trà giảm cân, khóa Facebook Ads" />
+      </div>
+      <div>
+        <label>Ai mua</label>
+        <input id="ai" placeholder="Chủ shop 28–45, mẹ bỉm, giám đốc SME…" />
+      </div>
+    </div>
+    <label>Nỗi đau / niềm tin sai</label>
+    <textarea id="pain" placeholder="Đang chạy ads mà không ra đơn vì clip đẹp nhưng không có lời kêu gọi"></textarea>
+    <label>Lời hứa 7–30 ngày + bằng chứng</label>
+    <input id="offer" placeholder="14 ngày có lịch đăng đều / giảm 20% CPA…" />
+    <label>Lời kêu gọi</label>
+    <input id="cta" placeholder="Nhắn tin SOP / bình luận MẪU / bấm liên kết" />
+    <button class="btn" id="go">Xuất 10 video hàng loạt</button>
+    <div class="out" id="out">
+      <p class="sub">Copy từng khối. Đổi ảnh sản phẩm trước khi dán vào model.</p>
+      <pre id="res"></pre>
+    </div>
+  </div>
+  <script>
+    const GOCS = [
+      ["Đừng làm thế này", "Mở bằng việc sai khách đang làm"],
+      ["Trước / sau", "Hai nhịp: cách cũ vs cách mẫu"],
+      ["Một con số", "1 số lớn trong 2 giây đầu"],
+      ["Ngày thường", "Cảnh 21h chủ shop vẫn nghĩ nội dung"],
+      ["Ba bước", "3 nhịp rõ, mỗi nhịp 1 việc"],
+      ["Mắt khách", "POV người lướt dừng vì 1 câu"],
+      ["Sếp hỏi", "Không khoe like, khoe tin nhắn / đơn"],
+      ["Bí mật nghề", "Một mẹo nhỏ nhưng đúng"],
+      ["Phản biện", "Lật một câu khách hay nói"],
+      ["Chốt thẳng", "Giá / hạn / lời kêu gọi ngay"],
+    ];
+    document.getElementById("go").onclick = () => {
+      const sp = document.getElementById("sp").value.trim() || "[sản phẩm]";
+      const ai = document.getElementById("ai").value.trim() || "[khách]";
+      const pain = document.getElementById("pain").value.trim() || "[nỗi đau]";
+      const offer = document.getElementById("offer").value.trim() || "[lời hứa]";
+      const cta = document.getElementById("cta").value.trim() || "Nhắn tin SOP";
+      const lock = `Giữ cùng 1 sản phẩm ${sp}, cùng màu thương hiệu, không đổi mặt nhân vật giữa các clip.`;
+      let t = `MYB VIDEO HÀNG LOẠT — ${sp}\nKhách: ${ai}\nPain: ${pain}\nHứa: ${offer}\nCTA: ${cta}\n${lock}\n\n`;
+      GOCS.forEach(([ten, mo], i) => {
+        t += `======== VIDEO ${i+1}: ${ten} ========\n`;
+        t += `Góc: ${mo}\nKịch bản 20–28s: Hook (nỗi ${pain.slice(0,60)}) → cơ chế → ${offer} → ${cta}.\n`;
+        t += `VEO: Cinematic 9:16, 8s shot, natural light, Vietnamese shop setting, ${sp} as hero object, ${lock} No text overlay.\n`;
+        t += `KLING: Image-to-video from product photo of ${sp}, subtle camera push-in, 5s, keep identity lock, no morphing face.\n`;
+        t += `GROK: Short vertical ad, ${ai} in frame, product ${sp} readable, hook energy, no celebrity likeness.\n\n`;
+      });
+      document.getElementById("res").textContent = t;
+      document.getElementById("out").classList.add("show");
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MyB Image Magic Tool</title>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;800&display=swap" rel="stylesheet" />
+  <style>
+    :root { --navy:#0d3558; --green:#3db54a; --ink:#14324a; --muted:#5e7384; --bg:#f3f6f8; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:"Be Vietnam Pro",sans-serif; background:var(--bg); color:var(--ink); }
+    .wrap { max-width:720px; margin:0 auto; padding:20px 16px 48px; }
+    h1 { font-size:22px; color:var(--navy); margin:8px 0; }
+    .sub { color:var(--muted); font-size:14px; }
+    .drop { border:2px dashed #b7c9d4; border-radius:14px; padding:28px; text-align:center; background:#fff; margin:16px 0; }
+    label { display:block; font-weight:700; font-size:13px; margin:12px 0 6px; }
+    select, input { font:inherit; font-size:16px; padding:10px; border-radius:10px; border:1px solid #d5e0e8; width:100%; }
+    .row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .btn { background:var(--green); color:#fff; border:0; font-weight:800; padding:14px; border-radius:10px; width:100%; cursor:pointer; margin-top:14px; }
+    canvas { max-width:100%; border-radius:10px; margin-top:12px; background:#fff; }
+    .logo { height:28px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <img class="logo" src="../assets/logo-myb.png" alt="MYB" />
+    <h1>MyB Image Magic Tool</h1>
+    <p class="sub">Đổi định dạng, thu nhỏ, nén ảnh ngay trên máy — không tải lên server, không gói tháng. Dùng cho ảnh sản phẩm trước khi đưa vào mẫu video.</p>
+    <div class="drop" id="drop">Kéo ảnh vào đây hoặc bấm để chọn<br /><input id="file" type="file" accept="image/*" /></div>
+    <div class="row">
+      <div>
+        <label>Định dạng xuất</label>
+        <select id="fmt"><option value="image/jpeg">JPG</option><option value="image/png">PNG</option><option value="image/webp">WEBP</option></select>
+      </div>
+      <div>
+        <label>Chiều rộng tối đa (px)</label>
+        <input id="w" type="number" value="1080" min="200" max="4000" />
+      </div>
+    </div>
+    <label>Chất lượng JPG/WEBP (0.5–1)</label>
+    <input id="q" type="number" value="0.85" min="0.5" max="1" step="0.05" />
+    <button class="btn" id="run">Xử lý và tải về</button>
+    <canvas id="cv" hidden></canvas>
+  </div>
+  <script>
+    const file = document.getElementById("file");
+    const drop = document.getElementById("drop");
+    drop.addEventListener("dragover", (e) => e.preventDefault());
+    drop.addEventListener("drop", (e) => { e.preventDefault(); if (e.dataTransfer.files[0]) file.files = e.dataTransfer.files; });
+    document.getElementById("run").onclick = () => {
+      const f = file.files[0];
+      if (!f) { alert("Chọn một ảnh trước."); return; }
+      const img = new Image();
+      img.onload = () => {
+        const max = Number(document.getElementById("w").value) || 1080;
+        const scale = Math.min(1, max / img.width);
+        const cv = document.getElementById("cv");
+        cv.width = Math.round(img.width * scale);
+        cv.height = Math.round(img.height * scale);
+        cv.getContext("2d").drawImage(img, 0, 0, cv.width, cv.height);
+        const type = document.getElementById("fmt").value;
+        const q = Number(document.getElementById("q").value) || 0.85;
+        cv.toBlob((blob) => {
+          const a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = "myb-image-magic." + type.split("/")[1];
+          a.click();
+        }, type, q);
+      };
+      img.src = URL.createObjectURL(f);
+    };
+  </script>
+</body>
+</html>
