@@ -1,5 +1,7 @@
 # Landing workshop Video AI — Nguyễn Hải Nam / MYB
 
+**Hồ sơ đầy đủ (giá, STK, brand, quy tắc sửa):** đọc [`DU-AN.md`](DU-AN.md) trước khi chỉnh.
+
 Hai trang theo xương phễu LeaderUp:
 
 | File | Việc |
@@ -21,6 +23,6 @@ Form trang 1 → lưu `localStorage` → redirect `uu-dai.html` kèm name/email/
 
 ## Việc cần điền trước khi chạy ads
 
-- STK Techcombank trong `uu-dai.html`
+- STK ACB 55593838 · Công ty TNHH Dịch vụ Truyền thông và Quảng cáo MYB (đã gắn trong `uu-dai.html`)
 - Link group Zalo sự kiện (đang trỏ `zalo.me/0868931691`)
 - Nối form với CRM / Google Sheet / email vé Zoom thật

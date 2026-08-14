@@ -78,6 +78,114 @@
     setInterval(fire, 7000);
   }
 
+  const NAME_KEEP_UPPER = new Set([
+    "tnhh", "tmcp", "mtv", "cp", "jsc", "myb", "ceo", "cmo", "ai", "sme", "vip", "oto",
+  ]);
+  const NAME_KEEP_LOWER = new Set([
+    "và", "của", "cho", "tại", "trên", "với", "hay", "hoặc", "trong", "về", "theo",
+  ]);
+  const COMPANY_COMPOUNDS = {
+    "công ty": "Công ty",
+    "dịch vụ": "Dịch vụ",
+    "truyền thông": "Truyền thông",
+    "quảng cáo": "Quảng cáo",
+    "thương mại": "Thương mại",
+    "cổ phần": "Cổ phần",
+    "hữu hạn": "hữu hạn",
+    "trách nhiệm": "Trách nhiệm",
+    "đầu tư": "Đầu tư",
+    "phát triển": "Phát triển",
+    "giáo dục": "Giáo dục",
+    "đào tạo": "Đào tạo",
+    "tư vấn": "Tư vấn",
+    "sản xuất": "Sản xuất",
+    "kinh doanh": "Kinh doanh",
+    "bất động sản": "Bất động sản",
+    "công nghệ": "Công nghệ",
+    "thông tin": "Thông tin",
+    "giải trí": "Giải trí",
+    "xuất nhập khẩu": "Xuất nhập khẩu",
+    "xuất khẩu": "Xuất khẩu",
+    "nhập khẩu": "Nhập khẩu",
+    "thực phẩm": "Thực phẩm",
+    "xây dựng": "Xây dựng",
+    "du lịch": "Du lịch",
+    "vận tải": "Vận tải",
+  };
+
+  function capSyllable(part) {
+    if (!part) return part;
+    const lower = part.toLocaleLowerCase("vi-VN");
+    return lower.charAt(0).toLocaleUpperCase("vi-VN") + lower.slice(1);
+  }
+
+  function vietCompanyCase(raw) {
+    const words = String(raw || "").trim().replace(/\s+/g, " ").split(" ");
+    if (!words[0]) return "";
+    const lower = words.map((w) => w.toLocaleLowerCase("vi-VN"));
+    const out = [];
+    let i = 0;
+    while (i < lower.length) {
+      let hit = "";
+      let span = 0;
+      for (let n = 3; n >= 2; n -= 1) {
+        const slice = lower.slice(i, i + n).join(" ");
+        if (COMPANY_COMPOUNDS[slice]) {
+          hit = COMPANY_COMPOUNDS[slice];
+          span = n;
+          break;
+        }
+      }
+      if (hit) {
+        out.push(hit);
+        i += span;
+        continue;
+      }
+      const w = lower[i];
+      if (NAME_KEEP_UPPER.has(w)) out.push(w.toLocaleUpperCase("vi-VN"));
+      else if (i > 0 && NAME_KEEP_LOWER.has(w)) out.push(w);
+      else out.push(capSyllable(w));
+      i += 1;
+    }
+    return out.join(" ");
+  }
+
+  /** Họ tên: viết hoa từng tiếng. Công ty: Công ty TNHH Dịch vụ…, giữ MYB, "và" viết thường. */
+  function vietTitleCase(raw, isPerson) {
+    const text = String(raw || "").trim().replace(/\s+/g, " ");
+    if (!text) return "";
+    if (!isPerson) return vietCompanyCase(text);
+    return text
+      .split(" ")
+      .map((word) => {
+        const bits = word.split(/([-./])/);
+        return bits
+          .map((bit) => {
+            if (!bit || /[-./]/.test(bit)) return bit;
+            const lower = bit.toLocaleLowerCase("vi-VN");
+            if (NAME_KEEP_UPPER.has(lower)) return lower.toLocaleUpperCase("vi-VN");
+            return capSyllable(bit);
+          })
+          .join("");
+      })
+      .join(" ");
+  }
+
+  function applyFieldCase(input) {
+    if (!input || !input.value) return;
+    const person = input.name === "name";
+    const company = input.name === "company";
+    if (!person && !company) return;
+    input.value = vietTitleCase(input.value, person);
+  }
+
+  function bindAutoCase(root = document) {
+    root.querySelectorAll('input[name="name"], input[name="company"]').forEach((el) => {
+      el.addEventListener("blur", () => applyFieldCase(el));
+      el.addEventListener("paste", () => setTimeout(() => applyFieldCase(el), 0));
+    });
+  }
+
   function fillFromLead(root = document) {
     let lead = {};
     try {
@@ -86,11 +194,11 @@
       lead = {};
     }
     const map = {
-      name: params.get("name") || lead.name || "",
+      name: vietTitleCase(params.get("name") || lead.name || "", true),
       email: params.get("email") || lead.email || "",
       phone: params.get("phone") || lead.phone || "",
       role: params.get("role") || lead.role || "",
-      company: params.get("company") || lead.company || "",
+      company: vietTitleCase(params.get("company") || lead.company || "", false),
       title: params.get("title") || lead.title || "",
     };
     Object.entries(map).forEach(([k, v]) => {
@@ -106,6 +214,7 @@
     const err = form.querySelector(".err");
     form.addEventListener("submit", (e) => {
       e.preventDefault();
+      form.querySelectorAll('input[name="name"], input[name="company"]').forEach(applyFieldCase);
       const data = Object.fromEntries(new FormData(form).entries());
       if (!data.name?.trim() || !data.phone?.trim() || !data.email?.trim()) {
         if (err) {
@@ -134,8 +243,22 @@
     const err = form.querySelector(".err");
     const success = document.querySelector("[data-success]");
     const packs = {
-      295: { name: "Gói 50 suất đầu", amount: 295000, label: "295.000đ", off: "−15.665.000đ", sku: "OTO-295-50SUAT" },
-      999: { name: "Gói VIP kèm 1:1", amount: 999000, label: "999.000đ", off: "−14.961.000đ", sku: "OTO-999-VIP-1-1" },
+      295: {
+        name: "Gói 50 suất đầu",
+        amount: 295000,
+        label: "295.000đ",
+        off: "−7.925.000đ",
+        cut: "8.220.000đ",
+        sku: "OTO-295-50SUAT",
+      },
+      999: {
+        name: "Gói VIP kèm 1:1",
+        amount: 999000,
+        label: "999.000đ",
+        off: "−9.721.000đ",
+        cut: "10.720.000đ",
+        sku: "OTO-999-VIP-1-1",
+      },
     };
     const paint = (key) => {
       const p = packs[key] || packs[295];
@@ -145,9 +268,11 @@
       const nameEl = form.querySelector("[data-sku-name]");
       const priceEl = form.querySelector("[data-sku-price]");
       const offEl = form.querySelector("[data-pay-off]");
+      const cutEl = form.querySelector("[data-sku-cut]");
       if (nameEl) nameEl.textContent = p.name;
       if (priceEl) priceEl.textContent = p.label;
       if (offEl) offEl.textContent = p.off;
+      if (cutEl) cutEl.textContent = p.cut;
     };
     form.querySelectorAll("input[name=pack]").forEach((input) => {
       input.addEventListener("change", () => paint(input.value));
@@ -155,6 +280,7 @@
     paint(form.querySelector("input[name=pack]:checked")?.value || "295");
     form.addEventListener("submit", (e) => {
       e.preventDefault();
+      form.querySelectorAll('input[name="name"], input[name="company"]').forEach(applyFieldCase);
       const data = Object.fromEntries(new FormData(form).entries());
       if (!data.name?.trim() || !data.phone?.trim() || !data.email?.trim() || !data.city) {
         if (err) {
@@ -187,6 +313,7 @@
   }
 
   fillFromLead();
+  bindAutoCase();
   bindRegister();
   bindCheckout();
   renderEventCountdown();
