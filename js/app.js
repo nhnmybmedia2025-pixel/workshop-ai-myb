@@ -17,6 +17,21 @@
   const nguon = params.get("nguon") || localStorage.getItem("myb_nguon") || "direct";
   if (params.get("nguon")) localStorage.setItem("myb_nguon", nguon);
 
+  const SHEET_WEBAPP =
+    "https://script.google.com/macros/s/AKfycbzhAQyczYClva_YcGRQ6SfZjzI0PyY1BRBE7Ap5JMg8yu9pT6GvMqFZbGRgvWf9h3d_Ag/exec";
+
+  function sendToSheet(payload) {
+    const qs = new URLSearchParams();
+    Object.entries(payload).forEach(([k, v]) => {
+      if (v != null && String(v).trim() !== "") qs.set(k, String(v));
+    });
+    const url = `${SHEET_WEBAPP}?${qs.toString()}`;
+    try {
+      if (navigator.sendBeacon) navigator.sendBeacon(url);
+      fetch(url, { method: "GET", mode: "no-cors", keepalive: true }).catch(() => {});
+    } catch (_) {}
+  }
+
   function pad(n) {
     return String(n).padStart(2, "0");
   }
@@ -226,6 +241,16 @@
       data.nguon = nguon;
       data.at = new Date().toISOString();
       localStorage.setItem("myb_lead", JSON.stringify(data));
+      sendToSheet({
+        loai: "dang-ky",
+        title: data.title || "",
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        role: data.role || "",
+        company: data.company || "",
+        nguon,
+      });
       const q = new URLSearchParams({
         name: data.name,
         email: data.email,
@@ -295,6 +320,16 @@
       data.nguon = nguon;
       data.at = new Date().toISOString();
       localStorage.setItem("myb_order", JSON.stringify(data));
+      sendToSheet({
+        loai: "don",
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        city: data.city || "",
+        pack: p.name,
+        amount: p.label,
+        nguon,
+      });
       const taken = Number(localStorage.getItem("myb_taken") || 37);
       localStorage.setItem("myb_taken", String(Math.min(49, taken + 1)));
       form.hidden = true;

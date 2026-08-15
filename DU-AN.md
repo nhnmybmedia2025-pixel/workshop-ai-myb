@@ -2,7 +2,7 @@
 
 **File hệ thống.** Đọc hết trước khi sửa `index.html` / `uu-dai.html` / `js/app.js` / DNS. Đổi giá, STK, ngày, domain thì cập nhật **file này cùng lúc** rồi commit + deploy.
 
-Cập nhật lần cuối: **15/08/2026** (sửa câu từ: ý tưởng, tone voice, tên 4 món).
+Cập nhật lần cuối: **15/08/2026** (nối form → Google Sheet).
 
 ---
 
@@ -179,7 +179,12 @@ Không Techcombank. Viết hoa: **Công ty** (không “Công Ty”), **Dịch v
 - Họ tên: viết hoa từng tiếng (`nguyễn hải nam` → Nguyễn Hải Nam). `blur` + `paste` + `submit`.
 - Công ty: hợp ngữ. `COMPANY_COMPOUNDS` + `NAME_KEEP_UPPER` / `NAME_KEEP_LOWER`.
 - Toast ảo: mảng `NAMES`.
-- Form **chưa** nối CRM / Sheet / email vé Zoom — chỉ `localStorage`.
+- Form **đã nối Google Sheet** (tài khoản `nhn.mybmedia2025@gmail.com`).
+  - Sheet: https://docs.google.com/spreadsheets/d/1Ds1Z6JLNTRiJEC2wC0aILZtpj9_9_Tgx6Frw2hfPqYg/edit
+  - Web app: `https://script.google.com/macros/s/AKfycbzhAQyczYClva_YcGRQ6SfZjzI0PyY1BRBE7Ap5JMg8yu9pT6GvMqFZbGRgvWf9h3d_Ag/exec`
+  - Cột: Thời gian, Loại (`dang-ky` / `don`), Danh xưng, Họ tên, Email, SĐT, Chức danh, Công ty, Tỉnh thành, Gói, Số tiền, Nguồn
+  - Script: `sheet-apps-script.gs` (Apps Script gắn vào sheet)
+  - Form vẫn lưu `localStorage` và chuyển OTO; gửi Sheet bằng `sendBeacon` + `fetch` no-cors (không chặn redirect).
 
 ---
 
@@ -235,7 +240,8 @@ Cover: `gift-tool.jpg`, `gift-prompt.jpg`, `gift-channel.jpg`, `gift-ads.jpg`.
 
 ## 12. Việc còn mở
 
-- [ ] Nối form → Google Sheet / CRM / mail vé Zoom thật
+- [x] Nối form → Google Sheet (15/08/2026)
+- [ ] Mail vé Zoom thật / CRM (Sheet đã có, chưa gửi mail tự động)
 - [ ] Link group Zalo sự kiện (đang `zalo.me/0868931691`)
 - [ ] Path `mybmedia.vn/workshop-video-ai` — chỉ khi có quyền sửa Next.js/Plesk
 - [x] Domain uy tín `workshop-video-ai.mybmedia.vn` (15/08/2026)
